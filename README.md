@@ -5,22 +5,16 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-Fork of the [NestJS TypeScript starter](https://github.com/nestjs/typescript-starter) that adds docker-compose for my own benefit.
+Fork of the [NestJS TypeScript starter](https://github.com/nestjs/typescript-starter) that adds containerization for my own benefit.
 
-## Compile and run the project
+## Run the project
 
 ```bash
-# development
-$ npm run start
+# Run in development mode and watch for changes
+$ docker compose -f dev.yml up --watch
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-
-# run in container
-$ docker-compose up
+# Run in production mode
+$ docker compose -f prod.yml up
 ```
 
 ## Run tests

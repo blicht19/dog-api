@@ -1,0 +1,14 @@
+version: '2'
+services:
+  app-dev:
+    extends:
+      file: prod.yml
+      service: app
+    command: sh -c "npm run start:dev"
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /usr/app/src
+        - action: rebuild
+          path: package.json

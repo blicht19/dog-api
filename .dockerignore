@@ -1,0 +1,12 @@
+.dockerignore
+.eslintrc.js
+.git
+.gitignore
+.prettierrc
+dist/**/*
+dist
+docker/*
+docker
+docker-compose.yml
+package-lock.json
+README.md
