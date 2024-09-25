@@ -1,9 +1,21 @@
 version: '2'
 services:
-  app-dev:
-    extends:
-      file: prod.yml
-      service: app
+  db:
+    image: postgres:16.4-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=changeit
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  app:
+    depends_on:
+      - db
+    build:
+      dockerfile: ./docker/app/Dockerfile
+      context: .
     command: sh -c "npm run start:dev"
     develop:
       watch:
@@ -12,3 +24,21 @@ services:
           target: /usr/app/src
         - action: rebuild
           path: package.json
+    ports:
+      - '3000:3000'
+
+  pgadmin:
+    depends_on:
+      - db
+    image: dpage/pgadmin4
+    ports:
+      - '8888:80'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=your@email.com
+      - PGADMIN_DEFAULT_PASSWORD=changeit
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
