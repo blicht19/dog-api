@@ -1,36 +1,37 @@
 version: '2'
 services:
   db:
+    container_name: dog_db
     image: postgres:16.4-alpine
+    hostname: postgreshost
+    restart: always
     ports:
       - '5432:5432'
+    user: postgres
     environment:
-      - POSTGRES_USER=username
-      - POSTGRES_PASSWORD=changeit
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=dogs
     volumes:
       - db:/var/lib/postgresql/data
+      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d dogs']
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   app:
+    container_name: dog_app
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     build:
       dockerfile: ./docker/app/Dockerfile
       context: .
     command: sh -c "npm run build && npm run start:prod"
     ports:
       - '3000:3000'
-
-  pgadmin:
-    depends_on:
-      - db
-    image: dpage/pgadmin4
-    ports:
-      - '8888:80'
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=your@email.com
-      - PGADMIN_DEFAULT_PASSWORD=changeit
-    volumes:
-      - db:/var/lib/postgresql/data
 
 volumes:
   db:
