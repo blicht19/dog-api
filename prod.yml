@@ -29,6 +29,10 @@ services:
     build:
       dockerfile: ./docker/app/Dockerfile
       context: .
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     command: sh -c "npm run build && npm run start:prod"
     ports:
       - '3000:3000'

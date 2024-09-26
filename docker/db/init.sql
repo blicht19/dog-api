@@ -8,7 +8,8 @@ CREATE TYPE DOG_GENDER AS ENUM ('Male', 'Female', 'Unknown');
 
 CREATE TABLE
     breed (
-        name CHARACTER VARYING(255) PRIMARY KEY,
+        id serial PRIMARY key,
+        name CHARACTER VARYING(255) NOT NULL,
         size BREED_SIZE,
         friendliness RATING,
         trainability RATING,
@@ -21,7 +22,7 @@ CREATE TABLE
         id serial PRIMARY key,
         name CHARACTER VARYING(255) NOT NULL,
         age UINT,
-        breed CHARACTER VARYING(255) REFERENCES breed (name),
+        breed INTEGER REFERENCES breed (id),
         gender DOG_GENDER,
         color CHARACTER VARYING(255),
         favoritefood CHARACTER VARYING(255),

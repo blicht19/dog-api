@@ -30,6 +30,9 @@ services:
       dockerfile: ./docker/app/Dockerfile
       context: .
     restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     command: sh -c "npm run start:dev"
     develop:
       watch:

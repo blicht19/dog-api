@@ -4,10 +4,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api/');
 
   const config = new DocumentBuilder()
-    .setTitle('NestJS Containerized Starter')
-    .setDescription('A containerized NestJS starter project')
+    .setTitle('Dog API')
+    .setDescription('A REST API for all the dogs')
     .setVersion('0.1')
     .build();
   const document = SwaggerModule.createDocument(app, config);
