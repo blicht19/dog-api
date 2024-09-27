@@ -15,8 +15,9 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
       - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/db/seed-data:/etc/seed-data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres -d dogs']
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d dogs']
       interval: 10s
       timeout: 5s
       retries: 3
@@ -36,6 +37,22 @@ services:
     command: sh -c "npm run build && npm run start:prod"
     ports:
       - '3000:3000'
+
+  pgadmin:
+    container_name: dog_pgadmin
+    depends_on:
+      db:
+        condition: service_healthy
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - '3001:80'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    user: root
+    volumes:
+      - db:/var/lib/postgresql/data
 
 volumes:
   db:

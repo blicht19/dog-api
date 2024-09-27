@@ -15,6 +15,7 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
       - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/db/seed-data:/etc/seed-data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d dogs']
       interval: 10s
@@ -52,7 +53,7 @@ services:
     image: dpage/pgadmin4
     restart: always
     ports:
-      - '8888:80'
+      - '3001:80'
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}

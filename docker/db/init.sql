@@ -17,6 +17,8 @@ CREATE TABLE
         exerciseneeds RATING
     );
 
+\copy breed (name, size, friendliness, trainability, sheddingamount, exerciseneeds) FROM '/etc/seed-data/breeds.csv' CSV HEADER;
+
 CREATE TABLE
     dog (
         id serial PRIMARY key,
@@ -28,3 +30,5 @@ CREATE TABLE
         favoritefood CHARACTER VARYING(255),
         favoritetoy CHARACTER VARYING(255)
     );
+
+\copy dog (name, age, breed, gender, color, favoritefood, favoritetoy) FROM '/etc/seed-data/dogs.csv' CSV HEADER;
