@@ -97,7 +97,7 @@ export class DogService {
   }
 
   async update(id: number, dog: UpdateDogDto): Promise<void | HttpException> {
-    const dogEntity = await this.createDogEntity(dog, id);
+    const dogEntity = await this.createDogEntity(dog, dog.breed);
     if (dogEntity instanceof HttpException) {
       return dogEntity;
     }
