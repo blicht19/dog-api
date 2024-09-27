@@ -33,7 +33,6 @@ export class BreedController {
   @Get()
   async findAllBreeds(): Promise<Breed[]> {
     const result = await this.breedService.findAll();
-
     return returnOrThrowHttpException(result);
   }
 
@@ -71,7 +70,7 @@ export class BreedController {
     description: 'No breed with this id was found',
   })
   @Get(':id')
-  async getBreedById(@Param('id') id: number) {
+  async getBreedById(@Param('id') id: number): Promise<Breed> {
     const result = await this.breedService.findById(id);
     return returnOrThrowHttpException(result);
   }
@@ -84,6 +83,10 @@ export class BreedController {
   @ApiResponse({
     status: HttpStatus.CONFLICT,
     description: 'Breed could not be updated due to a conflict in the database',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Bad request',
   })
   @Put(':id')
   async updateBreed(@Param('id') id: number, @Body() breed: UpdateBreedDto) {
@@ -102,7 +105,7 @@ export class BreedController {
   })
   @Delete(':id')
   async deleteBreed(@Param('id') id: number) {
-    const result = this.breedService.delete(id);
+    const result = await this.breedService.delete(id);
     return returnOrThrowHttpException(result);
   }
 }

@@ -71,7 +71,7 @@ export class BreedService {
 
   async delete(id: number): Promise<void | HttpException> {
     try {
-      this.breedRepository.delete(id);
+      await this.breedRepository.delete(id);
     } catch {
       return new HttpException(
         `An error occurred while attempting to delete the breed with id ${id}`,

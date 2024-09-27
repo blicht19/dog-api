@@ -8,5 +8,6 @@ import { BreedService } from './breed.service';
   imports: [TypeOrmModule.forFeature([Breed])],
   controllers: [BreedController],
   providers: [BreedService],
+  exports: [BreedService],
 })
 export class BreedModule {}
