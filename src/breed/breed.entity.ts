@@ -1,4 +1,4 @@
-import { rating } from 'src/types';
+import { Rating, Size } from 'src/types';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -10,17 +10,17 @@ export class Breed {
   name: string;
 
   @Column()
-  size?: 'Tiny' | 'Small' | 'Medium' | 'Large';
+  size?: Size;
 
   @Column()
-  friendliness?: rating;
+  friendliness?: Rating;
 
   @Column()
-  trainability?: rating;
+  trainability?: Rating;
 
   @Column({ name: 'sheddingamount' })
-  sheddingAmount?: rating;
+  sheddingAmount?: Rating;
 
   @Column({ name: 'exerciseneeds' })
-  exerciseNeeds?: rating;
+  exerciseNeeds?: Rating;
 }
