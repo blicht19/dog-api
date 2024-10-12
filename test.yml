@@ -43,21 +43,15 @@ services:
       timeout: 5s
       retries: 3
 
-  pgadmin:
-    container_name: dog_pgadmin
+  test:
+    container_name: dog_app_test
     depends_on:
-      db:
+      app:
         condition: service_healthy
-    image: dpage/pgadmin4
-    restart: always
-    ports:
-      - '3001:80'
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
-    user: root
-    volumes:
-      - db:/var/lib/postgresql/data
+    build:
+      dockerfile: ./docker/app/Dockerfile
+      context: .
+    command: sh -c "npm run test:e2e"
 
 volumes:
   db:
