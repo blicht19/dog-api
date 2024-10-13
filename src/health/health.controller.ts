@@ -1,7 +1,7 @@
 import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Dogs')
+@ApiTags('Health')
 @Controller('health')
 export class HealthController {
   constructor() {}

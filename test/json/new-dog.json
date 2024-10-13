@@ -1,0 +1,9 @@
+{
+  "gender": "Male",
+  "name": "TEST_NAME",
+  "age": 1,
+  "breed": 1,
+  "color": "TEST_COLOR",
+  "favoriteFood": "TEST_FOOD",
+  "favoriteToy": "TEST_TOY"
+}

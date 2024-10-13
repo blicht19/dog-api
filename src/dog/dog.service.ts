@@ -86,6 +86,10 @@ export class DogService {
       return dogEntity;
     }
 
+    if (!dogEntity.name) {
+      throw new HttpException('Dog name is required', HttpStatus.BAD_REQUEST);
+    }
+
     try {
       await this.dogRepository.insert(dogEntity);
     } catch {

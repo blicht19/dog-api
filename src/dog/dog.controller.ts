@@ -86,6 +86,10 @@ export class DogController {
     status: HttpStatus.CONFLICT,
     description: 'Dog could not be updated due to a conflict in the database',
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Bad request',
+  })
   @Put(':id')
   async updateDog(@Param('id') id: number, @Body() dog: UpdateDogDto) {
     const result = await this.dogService.update(id, dog);
