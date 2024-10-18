@@ -1,4 +1,3 @@
-version: '2'
 services:
   db:
     container_name: dog_db
@@ -13,7 +12,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=dogs
     volumes:
-      - db:/var/lib/postgresql/data
       - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./docker/db/seed-data:/etc/seed-data
     healthcheck:
@@ -52,7 +50,3 @@ services:
       dockerfile: ./docker/app/Dockerfile
       context: .
     command: sh -c "npm run test:e2e"
-
-volumes:
-  db:
-    driver: local
