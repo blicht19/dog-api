@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "name": "French Bulldog",
+  "size": "Small",
+  "friendliness": 3,
+  "trainability": 1,
+  "sheddingAmount": 2,
+  "exerciseNeeds": 1
+}

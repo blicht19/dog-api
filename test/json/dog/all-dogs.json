@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Sarge",
+    "age": 7,
+    "gender": "Male",
+    "color": "White",
+    "favoriteFood": "Kibble",
+    "favoriteToy": "Tennis Ball",
+    "breed": {
+      "id": 1,
+      "name": "French Bulldog",
+      "size": "Small",
+      "friendliness": 3,
+      "trainability": 1,
+      "sheddingAmount": 2,
+      "exerciseNeeds": 1
+    }
+  },
+  {
+    "id": 2,
+    "name": "Misty",
+    "age": 2,
+    "gender": "Female",
+    "color": "Blonde",
+    "favoriteFood": "Beef",
+    "favoriteToy": "Baseball",
+    "breed": {
+      "id": 2,
+      "name": "Labrador Retriever",
+      "size": "Medium",
+      "friendliness": 5,
+      "trainability": 4,
+      "sheddingAmount": 4,
+      "exerciseNeeds": 4
+    }
+  },
+  {
+    "id": 3,
+    "name": "Roy",
+    "age": 4,
+    "gender": "Male",
+    "color": "Blonde",
+    "favoriteFood": "Venison",
+    "favoriteToy": "Squeaky Bone",
+    "breed": {
+      "id": 3,
+      "name": "Golden Retriever",
+      "size": "Medium",
+      "friendliness": 4,
+      "trainability": 3,
+      "sheddingAmount": 5,
+      "exerciseNeeds": 5
+    }
+  },
+  {
+    "id": 4,
+    "name": "Gunther",
+    "age": 3,
+    "gender": "Male",
+    "color": "Brown",
+    "favoriteFood": "Sausage",
+    "favoriteToy": "Stick",
+    "breed": {
+      "id": 4,
+      "name": "German Shepherd",
+      "size": "Large",
+      "friendliness": 2,
+      "trainability": 5,
+      "sheddingAmount": 3,
+      "exerciseNeeds": 3
+    }
+  },
+  {
+    "id": 5,
+    "name": "Vinny",
+    "age": 5,
+    "gender": "Unknown",
+    "color": "Black",
+    "favoriteFood": "Bacon",
+    "favoriteToy": "Chew Toy",
+    "breed": {
+      "id": 5,
+      "name": "Daschund",
+      "size": "Tiny",
+      "friendliness": 1,
+      "trainability": 2,
+      "sheddingAmount": 1,
+      "exerciseNeeds": 2
+    }
+  }
+]

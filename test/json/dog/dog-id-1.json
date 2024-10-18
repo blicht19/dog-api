@@ -1,0 +1,18 @@
+{
+  "id": 1,
+  "name": "Sarge",
+  "age": 7,
+  "gender": "Male",
+  "color": "White",
+  "favoriteFood": "Kibble",
+  "favoriteToy": "Tennis Ball",
+  "breed": {
+    "id": 1,
+    "name": "French Bulldog",
+    "size": "Small",
+    "friendliness": 3,
+    "trainability": 1,
+    "sheddingAmount": 2,
+    "exerciseNeeds": 1
+  }
+}

@@ -44,6 +44,13 @@ export class BreedService {
 
   async insert(breed: CreateBreedDto): Promise<void | HttpException> {
     const breedEntity = this.breedRepository.create(breed);
+    if (!breedEntity.name) {
+      return new HttpException(
+        'Breed name is required',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     try {
       await this.breedRepository.insert(breedEntity);
     } catch {

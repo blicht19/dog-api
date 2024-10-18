@@ -12,7 +12,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=dogs
     volumes:
-      - db:/var/lib/postgresql/data
       - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./docker/db/seed-data:/etc/seed-data
     healthcheck:
@@ -33,14 +32,7 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    command: sh -c "npm run start:dev"
-    develop:
-      watch:
-        - action: sync
-          path: ./src
-          target: /usr/app/src
-        - action: rebuild
-          path: package.json
+    command: sh -c "npm run build && npm run start:prod"
     ports:
       - '3000:3000'
     healthcheck:
@@ -49,22 +41,12 @@ services:
       timeout: 5s
       retries: 3
 
-  pgadmin:
-    container_name: dog_pgadmin
+  test:
+    container_name: dog_app_test
     depends_on:
-      db:
+      app:
         condition: service_healthy
-    image: dpage/pgadmin4
-    restart: always
-    ports:
-      - '3001:80'
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
-    user: root
-    volumes:
-      - db:/var/lib/postgresql/data
-
-volumes:
-  db:
-    driver: local
+    build:
+      dockerfile: ./docker/app/Dockerfile
+      context: .
+    command: sh -c "npm run test:e2e"
