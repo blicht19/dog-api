@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "French Bulldog",
+    "size": "Small",
+    "friendliness": 3,
+    "trainability": 1,
+    "sheddingAmount": 2,
+    "exerciseNeeds": 1
+  },
+  {
+    "id": 2,
+    "name": "Labrador Retriever",
+    "size": "Medium",
+    "friendliness": 5,
+    "trainability": 4,
+    "sheddingAmount": 4,
+    "exerciseNeeds": 4
+  },
+  {
+    "id": 3,
+    "name": "Golden Retriever",
+    "size": "Medium",
+    "friendliness": 4,
+    "trainability": 3,
+    "sheddingAmount": 5,
+    "exerciseNeeds": 5
+  },
+  {
+    "id": 4,
+    "name": "German Shepherd",
+    "size": "Large",
+    "friendliness": 2,
+    "trainability": 5,
+    "sheddingAmount": 3,
+    "exerciseNeeds": 3
+  },
+  {
+    "id": 5,
+    "name": "Daschund",
+    "size": "Tiny",
+    "friendliness": 1,
+    "trainability": 2,
+    "sheddingAmount": 1,
+    "exerciseNeeds": 2
+  }
+]

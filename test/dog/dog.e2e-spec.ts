@@ -5,15 +5,10 @@ import { CreateDogDto } from 'src/dog/create-dog.dto';
 import { UpdateDogDto } from 'src/dog/update-dog.dto';
 
 describe('DogController', () => {
-  let allDogs;
-
-  beforeAll(() => {
-    allDogs = JSON.parse(
+  it('can get all dogs', async () => {
+    const allDogs = JSON.parse(
       readFileSync('/usr/app/test/json/all-dogs.json', 'utf-8'),
     );
-  });
-
-  it('can get all dogs', async () => {
     const response = await axios.get('http://app:3000/api/dogs');
     expect(response.status).toEqual(HttpStatus.OK);
     expect(response.data).toEqual(allDogs);
@@ -84,8 +79,8 @@ describe('DogController', () => {
     const putResponse = await axios.put('http://app:3000/api/dogs/3', update);
     expect(putResponse.status).toEqual(HttpStatus.OK);
 
-    const upDatedDog = (await axios.get('http://app:3000/api/dogs/3')).data;
-    expect(upDatedDog.name).toEqual(update.name);
+    const updatedDog = (await axios.get('http://app:3000/api/dogs/3')).data;
+    expect(updatedDog.name).toEqual(update.name);
   });
 
   it('can return a 400 response when updating a dog if the breed id is invalid', async () => {
