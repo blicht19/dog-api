@@ -1,34 +1,34 @@
 import { HttpStatus } from '@nestjs/common';
-import axios from 'axios';
 import { readFileSync } from 'fs';
 import { CreateDogDto } from 'src/dog/create-dog.dto';
 import { UpdateDogDto } from 'src/dog/update-dog.dto';
+import { AxiosTestInstance } from '../test-utils';
+
+const axiosTestInstance = new AxiosTestInstance('dogs');
 
 describe('DogController', () => {
   it('can get all dogs', async () => {
     const allDogs = JSON.parse(
-      readFileSync('/usr/app/test/json/all-dogs.json', 'utf-8'),
+      readFileSync('/usr/app/test/json/dog/all-dogs.json', 'utf-8'),
     );
-    const response = await axios.get('http://app:3000/api/dogs');
+    const response = await axiosTestInstance.getRequest('');
     expect(response.status).toEqual(HttpStatus.OK);
     expect(response.data).toEqual(allDogs);
   });
 
   it('can get a dog by id', async () => {
     const expectedDog = JSON.parse(
-      readFileSync('/usr/app/test/json/dog-id-1.json', 'utf-8'),
+      readFileSync('/usr/app/test/json/dog/dog-id-1.json', 'utf-8'),
     );
 
-    const response = await axios.get('http://app:3000/api/dogs/1');
+    const response = await axiosTestInstance.getRequest('1');
 
     expect(response.status).toEqual(HttpStatus.OK);
     expect(response.data).toEqual(expectedDog);
   });
 
   it('can return a 404 status if no dog is found with the matching ID', async () => {
-    const response = await axios.get('http://app:3000/api/dogs/42', {
-      validateStatus: () => true,
-    });
+    const response = await axiosTestInstance.getRequest('42');
 
     expect(response.status).toEqual(HttpStatus.NOT_FOUND);
     expect(response.data.message).toContain('No dog with id 42 found');
@@ -36,13 +36,13 @@ describe('DogController', () => {
 
   it('can add a new Dog', async () => {
     const newDog: CreateDogDto = JSON.parse(
-      readFileSync('/usr/app/test/json/new-dog.json', 'utf-8'),
+      readFileSync('/usr/app/test/json/dog/new-dog.json', 'utf-8'),
     );
 
-    const postResponse = await axios.post('http://app:3000/api/dogs', newDog);
+    const postResponse = await axiosTestInstance.postRequest('', newDog);
     expect(postResponse.status).toEqual(HttpStatus.CREATED);
 
-    const addedDog = (await axios.get('http://app:3000/api/dogs/6')).data;
+    const addedDog = (await axiosTestInstance.getRequest('6')).data;
     expect(addedDog.name).toEqual(newDog.name);
     expect(addedDog.age).toEqual(newDog.age);
     expect(addedDog.gender).toEqual(newDog.gender);
@@ -53,21 +53,13 @@ describe('DogController', () => {
   });
 
   it('can return a 400 response if the dog to be inserted does not have a name', async () => {
-    const postResponse = await axios.post(
-      'http://app:3000/api/dogs',
-      {},
-      { validateStatus: () => true },
-    );
+    const postResponse = await axiosTestInstance.postRequest('', {});
     expect(postResponse.status).toEqual(HttpStatus.BAD_REQUEST);
     expect(postResponse.data.message).toContain('Dog name is required');
   });
 
   it('can return a 400 response if the dog to be inserted has an invalid breed id', async () => {
-    const postResponse = await axios.post(
-      'http://app:3000/api/dogs',
-      { breed: 42 },
-      { validateStatus: () => true },
-    );
+    const postResponse = await axiosTestInstance.postRequest('', { breed: 42 });
     expect(postResponse.status).toEqual(HttpStatus.BAD_REQUEST);
     expect(postResponse.data.message).toContain('No breed with id 42 found');
   });
@@ -76,10 +68,10 @@ describe('DogController', () => {
     const update: UpdateDogDto = {
       name: 'Jeff',
     };
-    const putResponse = await axios.put('http://app:3000/api/dogs/3', update);
+    const putResponse = await axiosTestInstance.putRequest('3', update);
     expect(putResponse.status).toEqual(HttpStatus.OK);
 
-    const updatedDog = (await axios.get('http://app:3000/api/dogs/3')).data;
+    const updatedDog = (await axiosTestInstance.getRequest('3')).data;
     expect(updatedDog.name).toEqual(update.name);
   });
 
@@ -87,25 +79,16 @@ describe('DogController', () => {
     const update: UpdateDogDto = {
       breed: 42,
     };
-    const putResponse = await axios.put('http://app:3000/api/dogs/3', update, {
-      validateStatus: () => true,
-    });
+    const putResponse = await axiosTestInstance.putRequest('3', update);
 
     expect(putResponse.status).toEqual(HttpStatus.BAD_REQUEST);
   });
 
   it('can delete a dog', async () => {
-    const deleteResponse = await axios.delete('http://app:3000/api/dogs/1', {
-      validateStatus: () => true,
-    });
+    const deleteResponse = await axiosTestInstance.deleteRequest('1');
     expect(deleteResponse.status).toEqual(HttpStatus.OK);
 
-    const getDeletedDogResponse = await axios.get(
-      'http://app:3000/api/dogs/1',
-      {
-        validateStatus: () => true,
-      },
-    );
+    const getDeletedDogResponse = await axiosTestInstance.getRequest('1');
     expect(getDeletedDogResponse.status).toEqual(HttpStatus.NOT_FOUND);
   });
 });
